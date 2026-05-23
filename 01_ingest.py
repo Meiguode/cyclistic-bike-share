@@ -23,16 +23,13 @@ def parse_datetime_legacy(dt_str):
     if not dt_str:
         return None
     try:
-        # Remove quotes if present
         dt_str = dt_str.strip('"')
         
-        # Try ISO format first
         if '-' in dt_str:
             if '.' in dt_str:
                 dt_str = dt_str.split('.')[0]
             return datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
         else:
-            # Try with seconds first
             try:
                 return datetime.strptime(dt_str, '%m/%d/%Y %H:%M:%S')
             except:
@@ -45,13 +42,10 @@ def parse_datetime_legacy(dt_str):
             return None
 
 def parse_datetime(dt_str):
-    """Parse datetime string, handling various formats"""
     if not dt_str:
         return None
-    # Remove milliseconds if present
     if '.' in dt_str:
         dt_str = dt_str.split('.')[0]
-    # Try ISO format first
     try:
         return datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
     except:
@@ -68,7 +62,6 @@ def normalise_usertype(user_type):
     return None
 
 def get_field(row, idx, default=''):
-    """Safely get field from row"""
     return row[idx].strip() if idx < len(row) else default
 
 def process_row(row, schema):
@@ -154,7 +147,6 @@ def process_row(row, schema):
         result['end_lng'] = None
         result['member_casual'] = normalise_usertype(get_field(row, 9) if len(row) > 9 else '')
         result['gender'] = get_field(row, 10) if len(row) > 10 else None
-        # Handle birth year (column 11)
         if len(row) > 11:
             birth_val = get_field(row, 11)
             result['birth_year'] = int(birth_val) if birth_val and birth_val.isdigit() else None
@@ -166,7 +158,6 @@ def process_row(row, schema):
     else:
         return None
     
-    # Calculate derived fields if we have valid data
     if result['started_at'] and result['ended_at']:
         delta = result['ended_at'] - result['started_at']
         result['duration_sec'] = delta.total_seconds()
@@ -198,19 +189,15 @@ def process_row(row, schema):
 def detect_schema_from_header(header):
     header_str = ' '.join(header).lower()
     
-    # Modern format (2020+)
     if 'ride_id' in header_str and 'member_casual' in header_str:
         return "D"
     
-    # Special 2018 Q1 / 2019 Q2 format (has 'rental details rental id')
     if 'rental details rental id' in header_str:
         return "B"
     
-    # 2018 Q2-Q4 format (has 'trip_id', 'start_time', 'end_time')
     if 'trip_id' in header_str and 'start_time' in header_str and 'end_time' in header_str:
         return "C"
     
-    # Legacy format (has 'trip_id', 'starttime', 'stoptime')
     if 'trip_id' in header_str and 'starttime' in header_str:
         return "A"
     
@@ -226,7 +213,6 @@ SKIP_PATTERNS = [
 
 def should_skip(filepath):
     name = Path(filepath).name.lower()
-    # Also skip station files based on path
     if 'station' in str(filepath).lower():
         return True
     return any(p.lower() in name for p in SKIP_PATTERNS)
