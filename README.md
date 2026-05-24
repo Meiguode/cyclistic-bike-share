@@ -11,7 +11,7 @@
 
 ## Overview
 
-This project is a portfolio case study completed as part of the Google Data Analytics Certificate.  
+This project is a portfolio case study.  
 I analysed the full Divvy bike-share trip dataset (2013–2020, 30M+ rows across multiple schema versions) to identify behavioural differences between casual riders and annual members.
 
 Due to the dataset size, the pipeline uses chunked CSV ingestion into a local SQLite database, with aggregation queries producing summary statistics that power all visualisations. This approach keeps peak RAM usage under 500 MB.
