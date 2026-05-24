@@ -31,9 +31,9 @@ Due to the dataset size, the pipeline uses chunked CSV ingestion into a local SQ
 
 | Finding | Members | Casual Riders |
 |:--------|--------:|--------------:|
-| **Peak days** | Monday – Friday | Saturday – Sunday |
+| **Peak days** | Monday - Friday | Saturday - Sunday |
 | **Avg ride duration** | ~12 minutes | ~24 minutes |
-| **Peak hours** | 8 am and 5 pm | 12 pm – 4 pm |
+| **Peak hours** | 8 am and 5 pm | 12 pm - 4 pm |
 | **Top start stations** | Near transit hubs | Lakefront & parks |
 | **Seasonal pattern** | Consistent | Strongly seasonal |
 
@@ -41,20 +41,21 @@ Due to the dataset size, the pipeline uses chunked CSV ingestion into a local SQ
 
 ## Recommendations
 
-1. **Weekend trial campaign (Apr–Jun)**  
+1. **Weekend trial campaign (Apr-Jun)**  
    Target casual riders after their second weekend ride with a trial membership offer emphasising unlimited ride duration.
 
 2. **Station-based conversion**  
    Place QR code signage at the top 10 casual start stations, concentrated at Millennium Park and the lakefront.
 
-3. **Digital retargeting (Sat–Sun, 11am–3pm)**  
+3. **Digital retargeting (Sat-Sun, 11am-3pm)**  
    Geo-targeted social ads in Chicago lakefront zip codes during the peak casual window.
 
 ---
 
 ## Project Structure
+```
 cyclistic-bike-share/
-├── raw_data/ # NOT committed — download from divvy-tripdata.com
+├── raw_data/ # NOT committed - download from divvy-tripdata.com
 ├── outputs/
 │ ├── charts/ # PNG chart exports (committed)
 │ └── summary_stats/ # Small aggregate CSVs (committed)
@@ -64,7 +65,7 @@ cyclistic-bike-share/
 ├── 03_visualize.py # Chart generation
 ├── README.md
 └── requirements.txt
-
+```
 
 ---
 
